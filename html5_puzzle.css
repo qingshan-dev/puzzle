@@ -14,7 +14,10 @@ canvas {
 .puzzle_column,#puzzle_left,#puzzle_right,#add_img {
     display: inline-block;
 }
-
+.puzzle_column ul{
+	margin:0px;
+	padding:0px;
+}
 .puzzle_column li {
     display: block;
     margin: 5px;
@@ -34,9 +37,22 @@ canvas {
     width: 100px;
     height: 100px;
 }
-
+#puzzle_left{
+	position:absolute;
+	top:10px;
+}
+#puzzle_right{
+	position:absolute;
+	left:236px;
+	top:0px;
+}
+#puzzle_bottom{
+	position:absolute;
+	top:610px;
+}
 #puzzle_left,#puzzle_right {
     border: 1px solid #3B5998;
+
 }
 
 #puzzle_right,#puzzle_bottom a {
@@ -54,8 +70,8 @@ canvas {
 
 #puzzle_canvas {
     overflow: hidden;
-    width: 1200px;
-    height: 800px;
+    width: 800px;
+    height: 600px;
     position: relative;
     border: dotted #3B5998 1px;
 }
@@ -89,13 +105,22 @@ canvas {
     top: 0;
     left: 0;
     display: none;
+	border: 1px solid #301BE7;
+	border-radius: 16px;
+	background-color: #731FC0;
+	border-style: groove;
+	padding:2px;
+}
+#canvas_menu a{
+	color: #FFF;
+	padding:1px;
 }
 
 #canvas_menu a {
     display: inline-block;
 }
 
-#test_canvas {
+#test_canvas , #test ,#upload_btn{
     top: 700px;
     display: none;
 }
