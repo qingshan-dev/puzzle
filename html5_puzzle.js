@@ -57,6 +57,12 @@ require([ 'jquery', 'canvasImg', 'canvasElement' ], function(
     }();
     function getCurImg(){
         var oImg=canvas._prevTransform.target;
+        console.clear();
+        console.info("_prevTransform", oImg);
+        console.info("_currentTransform", canvas._currentTransform);
+        for(var i=0;i<canvas._aImages.length;i++){
+	        console.info("uuids", canvas._aImages[i]._oElement.uuid, canvas._aImages[i]._oElement.src);
+        }
         for(var i=0;i<canvas._aImages.length;i++){
 	        if(canvas._aImages[i]._oElement.uuid==oImg._oElement.uuid){
 	            return i;
@@ -124,6 +130,13 @@ require([ 'jquery', 'canvasImg', 'canvasElement' ], function(
         	var reader = new FileReader();
 			reader.onload = (function() {
 				return function(e) {
+					var ii=getCurImg(),target=canvas._prevTransform.target;
+				    console.log(ii, target);
+				    if(ii == null){
+				    	console.error("当前指定的图片不存在99", ii, target);
+				    	console.dir(canvas._aImages);
+				    	return ;
+				    }
 					var uuid = Math.uuid();
 					var dataURL = e.target.result,
 						canvas1 = document.querySelector('#test_canvas'),
@@ -144,22 +157,46 @@ require([ 'jquery', 'canvasImg', 'canvasElement' ], function(
 							imgs.width = img.width * prop;
 							imgs.height = img.height * prop;
 						}
-					    var i=getCurImg(),target=canvas._prevTransform.target;
-					    console.log(i, target);
-					    if(i == null){
-					    	console.clear();
-					    	console.error("当前指定的图片不存在", i, target);
+					    var ii=getCurImg(),target=canvas._prevTransform.target;
+					    console.log(ii, target);
+					    if(ii == null){
+					    	console.error("当前指定的图片不存在", ii, target);
 					    	console.dir(canvas._aImages);
 					    	return ;
 					    }
-					    canvas._aImages[i]=new canvasImg.Img(imgs, {
+					    var imgss = new canvasImg.Img(imgs, {
 					        top:target.top,
 					        left:target.left,
 					        scalex:target.scalex,
 					        scaley:target.scaley,
 					        angle:canvas.curAngle
 					    });
+					    var a_uuids = "";
+					    for(var i=0;i<canvas._aImages.length;i++){
+					        a_uuids +=","+canvas._aImages[i]._oElement.uuid;
+				        }
+					    console.info('before', canvas._aImages.length, a_uuids);
+					    //canvas._aImages.splice(ii, 1, imgss);
+					    canvas._aImages.splice(ii, 1);
+					    canvas._aImages.push(imgss);
+					    var b_uuids = "";
+					    for(var i=0;i<canvas._aImages.length;i++){
+					        b_uuids +=","+canvas._aImages[i]._oElement.uuid;
+				        }
+					    console.info('after', canvas._aImages.length,b_uuids);
+					    console.info(ii, canvas._aImages[ii], target, uuid);
 					    canvas.renderTop();
+					    canvas._prevTransform= { 
+			                target: imgss
+			            };
+//					    canvas._currentTransform = { 
+//			                target: imgss,
+//			            };
+                   		//canvas._aImages.push(imgss);
+					    //canvas.renderTop();
+					    //canvas.renderAll(false,false);
+					    //canvas.renderIndex(ii);
+					    //canvas.renderAll(false,true);
 					    S('#canvid1 img').remove();
 //					    document.getElementById("test").value='';
 					};
