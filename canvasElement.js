@@ -272,6 +272,7 @@ var Canvas = window.Canvas || {};
         }
     };
     Canvas.Element.prototype.drawImageElement = function(context, oImg,allowCorners) {
+		if(!oImg){return ;}
         oImg.cornervisibility=allowCorners;
         var offsetY = oImg.height / 2;
         var offsetX = oImg.width / 2;
