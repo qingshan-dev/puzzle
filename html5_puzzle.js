@@ -3,14 +3,14 @@ require([ 'jquery', 'canvasImg', 'canvasElement' ], function(
     var img=[];
     var canvas = new canvasElement.Element();
     canvas.init('canvid1', {
-        width : 1200,
-        height : 800
+        width : 800,
+        height : 600
     });
     S('.puzzle_column img').on('click',function(e){
         var index=this.getAttribute('data-index');
         $('#bg').load(function() {
             var ctx=$('#canvid1-canvas-background').get(0).getContext('2d');
-            ctx.clearRect(0, 0,1200,800);
+            ctx.clearRect(0, 0,800,600);
             img[0]=new canvasImg.Img($('#bg').get(0), {});
             canvas.setCanvasBackground(img[0]);
         });
@@ -23,7 +23,7 @@ require([ 'jquery', 'canvasImg', 'canvasElement' ], function(
 	function setBg(index){
         $('#bg').load(function() {
             var ctx=$('#canvid1-canvas-background').get(0).getContext('2d');
-            ctx.clearRect(0, 0,1200,800);
+            ctx.clearRect(0, 0,800,600);
             img[0]=new canvasImg.Img($('#bg').get(0), {});
             canvas.setCanvasBackground(img[0]);
         });
@@ -85,16 +85,19 @@ require([ 'jquery', 'canvasImg', 'canvasElement' ], function(
 						ctx = canvas1.getContext('2d'),
 						img = new Image();
 					img.onload = function(e) {
-						if (img.width > 200 || img.height > 200) {
-							var prop = Math.min(200 / img.width, 200 / img.height);
-							img.width = img.width * prop;
-							img.height = img.height * prop;
-						}
 						canvas1.width = img.width;
 						canvas1.height = img.height;
 						ctx.drawImage(img, 0, 0, img.width, img.height);
 						S('#canvid1').html(S('#canvid1').html() + "<img src='" + canvas1.toDataURL("image/jpeg") + "'/>");
-						var imgss = new canvasImg.Img($('#canvid1 img').get(0), {});
+						var imgs = $('#canvid1 img').get(0);
+						imgs.width = img.width;
+						imgs.height = img.height;
+						if (img.width > 200 || img.height > 200) {
+							var prop = Math.min(200 / img.width, 200 / img.height);
+							imgs.width = img.width * prop;
+							imgs.height = img.height * prop;
+						}
+						var imgss = new canvasImg.Img(imgs, {});
 						if(S.isEmptyObject(canvas._aImages)) {
 				            canvas._aImages = [];
 				        }
@@ -120,19 +123,22 @@ require([ 'jquery', 'canvasImg', 'canvasElement' ], function(
 						ctx = canvas1.getContext('2d'),
 						img = new Image();
 					img.onload = function(e) {
-						if (img.width > 200 || img.height > 200) {
-							var prop = Math.min(200 / img.width, 200 / img.height);
-							img.width = img.width * prop;
-							img.height = img.height * prop;
-						}
 						canvas1.width = img.width;
 						canvas1.height = img.height;
 						ctx.drawImage(img, 0, 0, img.width, img.height);
 						S('#canvid1').html(S('#canvid1').html() + "<img src='" + canvas1.toDataURL("image/jpeg") + "'/>");
+						var imgs = $('#canvid1 img').get(0);
+						imgs.width = img.width;
+						imgs.height = img.height;
+						if (img.width > 200 || img.height > 200) {
+							var prop = Math.min(200 / img.width, 200 / img.height);
+							imgs.width = img.width * prop;
+							imgs.height = img.height * prop;
+						}
 						var t = window.setTimeout(function() {
 						    var i=getCurImg(),target=canvas._prevTransform.target;
 						    console.log(target);
-						    canvas._aImages[i]=new canvasImg.Img($('#canvid1 img').get(0), {
+						    canvas._aImages[i]=new canvasImg.Img(imgs, {
 						        top:target.top,
 						        left:target.left,
 						        scalex:target.scalex,
@@ -142,7 +148,7 @@ require([ 'jquery', 'canvasImg', 'canvasElement' ], function(
 						    canvas.renderTop();
 						    clearTimeout(t);
 						    S('#canvid1 img').remove();
-						},800);
+						},600);
 							/*var imgss = new canvasImg.Img($('#canvid1 img').get(0), {});
 							if(S.isEmptyObject(canvas._aImages)) {
 					            canvas._aImages = [];
