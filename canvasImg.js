@@ -59,6 +59,7 @@ var Canvas = window.Canvas || {};
     Canvas.Img.prototype.theta = null;
     Canvas.Img.prototype.scalex = null;
     Canvas.Img.prototype.scaley = null;
+    Canvas.Img.prototype.uuid = null;
     Canvas.Img.prototype.cornersize = null;
     Canvas.Img.prototype.polaroidheight = null;
     Canvas.Img.prototype.randomposition = null;
@@ -67,6 +68,9 @@ var Canvas = window.Canvas || {};
     Canvas.Img.prototype.cornervisibility = false;
     Canvas.Img.prototype._initElement = function(el) {
             this._oElement = el;
+            if(el.uuid){
+            	this.uuid = el.uuid;
+            }
     };
     Canvas.Img.prototype._initConfig = function(oConfig) {
         var sKey;
