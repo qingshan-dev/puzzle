@@ -58,10 +58,11 @@ require([ 'jquery', 'canvasImg', 'canvasElement' ], function(
     function getCurImg(){
         var oImg=canvas._prevTransform.target;
         for(var i=0;i<canvas._aImages.length;i++){
-        if(canvas._aImages[i]._oElement.src==oImg._oElement.src){
-            return i;
+	        if(canvas._aImages[i]._oElement.uuid==oImg._oElement.uuid){
+	            return i;
+	        }
         }
-        }
+        return null;
     }
     S('#photo_delete').on('click',function(e){
         var i=getCurImg();
@@ -74,16 +75,19 @@ require([ 'jquery', 'canvasImg', 'canvasElement' ], function(
     });
     
     S('#fileImage').on('change',function(e){
-    	 var files = e.target.files || e.dataTransfer.files;
+    	var target = e.target || e.dataTransfer;
+    	var files = e.target.files || e.dataTransfer.files;
         for (var i = 0; i < files.length; i++) {
         	var ff = files[i];
         	var reader = new FileReader();
 			reader.onload = (function() {
 				return function(e) {
+					var uuid = Math.uuid();
 					var dataURL = e.target.result,
 						canvas1 = document.querySelector('#test_canvas'),
 						ctx = canvas1.getContext('2d'),
 						img = new Image();
+						img.uuid = uuid;
 					img.onload = function(e) {
 						canvas1.width = img.width;
 						canvas1.height = img.height;
@@ -92,6 +96,7 @@ require([ 'jquery', 'canvasImg', 'canvasElement' ], function(
 						var imgs = $('#canvid1 img').get(0);
 						imgs.width = img.width;
 						imgs.height = img.height;
+						imgs.uuid = uuid;
 						if (img.width > 200 || img.height > 200) {
 							var prop = Math.min(200 / img.width, 200 / img.height);
 							imgs.width = img.width * prop;
@@ -104,6 +109,7 @@ require([ 'jquery', 'canvasImg', 'canvasElement' ], function(
 						canvas._aImages.push(imgss);
 						S('#canvid1 img').remove();
 					    canvas.renderAll(false,true);
+					    document.getElementById("fileImage").value='';
 					};
 					img.src = dataURL;
 				};
@@ -118,10 +124,12 @@ require([ 'jquery', 'canvasImg', 'canvasElement' ], function(
         	var reader = new FileReader();
 			reader.onload = (function() {
 				return function(e) {
+					var uuid = Math.uuid();
 					var dataURL = e.target.result,
 						canvas1 = document.querySelector('#test_canvas'),
 						ctx = canvas1.getContext('2d'),
 						img = new Image();
+						img.uuid = uuid;
 					img.onload = function(e) {
 						canvas1.width = img.width;
 						canvas1.height = img.height;
@@ -130,32 +138,30 @@ require([ 'jquery', 'canvasImg', 'canvasElement' ], function(
 						var imgs = $('#canvid1 img').get(0);
 						imgs.width = img.width;
 						imgs.height = img.height;
+						imgs.uuid = uuid;
 						if (img.width > 200 || img.height > 200) {
 							var prop = Math.min(200 / img.width, 200 / img.height);
 							imgs.width = img.width * prop;
 							imgs.height = img.height * prop;
 						}
-						var t = window.setTimeout(function() {
-						    var i=getCurImg(),target=canvas._prevTransform.target;
-						    console.log(target);
-						    canvas._aImages[i]=new canvasImg.Img(imgs, {
-						        top:target.top,
-						        left:target.left,
-						        scalex:target.scalex,
-						        scaley:target.scaley,
-						        angle:canvas.curAngle
-						    });
-						    canvas.renderTop();
-						    clearTimeout(t);
-						    S('#canvid1 img').remove();
-						},600);
-							/*var imgss = new canvasImg.Img($('#canvid1 img').get(0), {});
-							if(S.isEmptyObject(canvas._aImages)) {
-					            canvas._aImages = [];
-					        }
-							canvas._aImages.push(imgss);
-							S('#canvid1 img').remove();
-						    canvas.renderAll(false,true);;*/
+					    var i=getCurImg(),target=canvas._prevTransform.target;
+					    console.log(i, target);
+					    if(i == null){
+					    	console.clear();
+					    	console.error("当前指定的图片不存在", i, target);
+					    	console.dir(canvas._aImages);
+					    	return ;
+					    }
+					    canvas._aImages[i]=new canvasImg.Img(imgs, {
+					        top:target.top,
+					        left:target.left,
+					        scalex:target.scalex,
+					        scaley:target.scaley,
+					        angle:canvas.curAngle
+					    });
+					    canvas.renderTop();
+					    S('#canvid1 img').remove();
+//					    document.getElementById("test").value='';
 					};
 					img.src = dataURL;
 				};
