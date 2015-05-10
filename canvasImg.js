@@ -122,10 +122,10 @@ var Canvas = window.Canvas || {};
             this.angle = (Math.random() * 90);
         }
         if (oConfig.top == null) {
-            this.top = this.height / 2 + Math.random() * 800;
+            this.top = this.height / 2 + Math.random() * 600;
         }
         if (oConfig.left == null) {
-            this.left = this.width / 2 + Math.random() * 1200;
+            this.left = this.width / 2 + Math.random() * 800;
         }
     };
     Canvas.Img.prototype.setCornersVisibility = function(visible) {
