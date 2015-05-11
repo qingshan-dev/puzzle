@@ -52,8 +52,10 @@
 			<div id='puzzle_right'>
 				<div id='puzzle_canvas'>
 					<canvas id="canvid1"></canvas>
-					<div id='canvas_menu'>
-						<a href='javascript:void(0)' id='photo_delete'>删除</a> <a href='javascript:void(0)' id='photo_update'>更换</a>
+					<div id='canvas_menu' 
+					style='-moz-user-select: none; -webkit-user-select: none; -ms-user-select:none; user-select:none;-o-user-select:none;' 
+ unselectable='on' onselectstart='return false;' onmousedown='return false;'>
+						<a href='javascript:void(0)' id='photo_delete'>删除</a> <a href='javascript:void(0)' id='photo_update'>更改</a>
 					</div>
 				</div>
 				<img id="bg" width='800' height='600' />
