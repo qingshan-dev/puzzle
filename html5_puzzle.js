@@ -79,7 +79,11 @@ require([ 'jquery', 'canvasImg', 'canvasElement' ], function(
     S('#photo_update').on('click',function(e){
         $('#test').click();
     });
-    
+    $("#canvas_menu").on("click mousedown mouseup select", function(e){
+    	console.error("canvas_menu click", e);
+	    canvas.onMouseUp(e);
+	    e.stopPropagation();
+	});
     S('#fileImage').on('change',function(e){
     	var target = e.target || e.dataTransfer;
     	var files = e.target.files || e.dataTransfer.files;
