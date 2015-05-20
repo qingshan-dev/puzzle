@@ -125,15 +125,15 @@ var Canvas = window.Canvas || {};
                 left: oImg.left, top: oImg.top,
                 theta: oImg.theta 
             };
-            $('#canvas_menu').css('transform','rotate('+oImg.theta*180/3.14+'deg)');
+          /*  $('#canvas_menu').css('transform','rotate('+oImg.theta*180/3.14+'deg)');
             $('#canvas_menu').css('left',oImg.left+"px");
             $('#canvas_menu').css('top', oImg.top+"px");
-            $('#canvas_menu').css('display','block');
+            $('#canvas_menu').css('display','block');*/
             this.renderAll(false,false);
         }
-        if (this._currentTransform == null){
+        /*if (this._currentTransform == null){
         	$('#canvas_menu').css('display','none');
-        }
+        }*/
     };
     Canvas.Element.prototype.onMouseMove = function(e) {
         var mp = this.findMousePosition(e);
@@ -165,8 +165,8 @@ var Canvas = window.Canvas || {};
     Canvas.Element.prototype.translateImage = function(mp) {
         this._currentTransform.target.left = mp.ex - this._currentTransform.offsetX;
         this._currentTransform.target.top = mp.ey - this._currentTransform.offsetY;
-        $('#canvas_menu').css('left',this._currentTransform.target.left+"px");
-        $('#canvas_menu').css('top',this._currentTransform.target.top +"px");
+        /*$('#canvas_menu').css('left',this._currentTransform.target.left+"px");
+        $('#canvas_menu').css('top',this._currentTransform.target.top +"px");*/
     };
     Canvas.Element.prototype.scaleImage = function(mp) {
         var lastLen = 
@@ -194,7 +194,7 @@ var Canvas = window.Canvas || {};
         );
         this._currentTransform.target.theta = (curAngle - lastAngle) + this._currentTransform.theta;
         this.curAngle=this._currentTransform.target.theta*180/3.14;
-        $('#canvas_menu').css('transform','rotate('+this.curAngle+'deg)');
+//      $('#canvas_menu').css('transform','rotate('+this.curAngle+'deg)');
     };
     Canvas.Element.prototype.setCursor = function(mp, targetImg) {
 //  	debugger ;

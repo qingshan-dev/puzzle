@@ -74,7 +74,7 @@ require([ 'jquery', 'canvasImg', 'canvasElement' ], function(
         var i=getCurImg();
         canvas._aImages.splice(i,1);
         canvas.renderAll(true,true);
-        $('#canvas_menu').css('display','none');
+//      $('#canvas_menu').css('display','none');
     });
     S('#photo_update').on('click',function(e){
         $('#test').click();
