@@ -56,6 +56,10 @@ require([ 'jquery', 'canvasImg', 'canvasElement' ], function(
         };
     }();
     function getCurImg(){
+    	if (!canvas._prevTransform) {
+    		console.info("请选择图片");
+			return null;
+		}
         var oImg=canvas._prevTransform.target;
         console.clear();
         console.info("_prevTransform", oImg);
@@ -78,6 +82,32 @@ require([ 'jquery', 'canvasImg', 'canvasElement' ], function(
     });
     S('#photo_update').on('click',function(e){
         $('#test').click();
+    });
+    S('#photo_v_turn').on('click',function(e){
+    	e.stopPropagation();
+        var i=getCurImg();
+        var imgs = canvas._aImages[i];
+        imgs.scalexTurn = 1;
+        if(!imgs.scaleyTurn){
+        	imgs.scaleyTurn = -1;
+        }else{
+        	imgs.scaleyTurn = -1*imgs.scaleyTurn;
+        }
+        console.info(imgs);
+        canvas.renderTop();
+    });
+    S('#photo_h_turn').on('click',function(e){
+    	e.stopPropagation();
+        var i=getCurImg();
+        var imgs = canvas._aImages[i];
+        imgs.scaleyTurn = 1;
+        if(!imgs.scalexTurn){
+        	imgs.scalexTurn = -1;
+        }else{
+        	imgs.scalexTurn = -1*imgs.scalexTurn;
+        }
+        console.info(imgs);
+        canvas.renderTop();
     });
     $("#canvas_menu").on("click mousedown mouseup select", function(e){
     	console.error("canvas_menu click", e);
@@ -137,7 +167,7 @@ require([ 'jquery', 'canvasImg', 'canvasElement' ], function(
 					var ii=getCurImg(),target=canvas._prevTransform.target;
 				    console.log(ii, target);
 				    if(ii == null){
-				    	console.error("当前指定的图片不存在99", ii, target);
+				    	console.error("当前指定的图片不存在", ii, target);
 				    	console.dir(canvas._aImages);
 				    	return ;
 				    }

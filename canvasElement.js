@@ -280,6 +280,9 @@ var Canvas = window.Canvas || {};
         context.translate(oImg.left, oImg.top);
         context.rotate(oImg.theta);
         context.scale(oImg.scalex, oImg.scaley);
+        if(oImg.scalexTurn && oImg.scaleyTurn){
+        	context.scale(oImg.scalexTurn, oImg.scaleyTurn);
+        }
         this.drawBorder(context, oImg, offsetX, offsetY);
         var originalImgSize = oImg.getOriginalSize();
         var polaroidHeight = ((oImg.height - originalImgSize.height) - (oImg.width - originalImgSize.width))/2;
