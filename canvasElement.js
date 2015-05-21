@@ -26,7 +26,7 @@ var Canvas = window.Canvas || {};
         this._initEvents();
         this._initCustomEvents();
     };
-    Canvas.Element.prototype._initElement = function(el) {
+    Canvas.Element.prototype._initElement = function(el) {	
         this._oElement = document.getElementById(el);
         this._oContextTop = this._oElement.getContext('2d');
     };
@@ -243,10 +243,10 @@ var Canvas = window.Canvas || {};
             var originalImgSize = this._backgroundImg.getOriginalSize();
             this._oContextTop.drawImage(this._backgroundImg._oElement, 0, 0, originalImgSize.width, originalImgSize.height);
         }
-            for (var i = 0, l = this._aImages.length-1; i < l; i += 1) {
-                this.drawImageElement(containerCanvas, this._aImages[i],allowCorners);            
-            }
-            this.drawImageElement(this._oContextTop, this._aImages[this._aImages.length-1],allowCorners);
+        for (var i = 0, l = this._aImages.length-1; i < l; i += 1) {
+            this.drawImageElement(containerCanvas, this._aImages[i],allowCorners);            
+        }
+        this.drawImageElement(this._oContextTop, this._aImages[this._aImages.length-1],allowCorners);
     };
     Canvas.Element.prototype.renderTop = function() {
         this._oContextTop.clearRect(0,0,parseInt(this._oConfig.width), parseInt(this._oConfig.height));
@@ -423,11 +423,11 @@ var Canvas = window.Canvas || {};
     Canvas.Element.prototype.canvasTo = function(format) {
         this.renderAll(true,false);
         var containerCanvas =this._oContextTop;
-        for (var i = 0, l = this._aImages.length; i < l; i += 1) {
+/*        for (var i = 0, l = this._aImages.length; i < l; i += 1) {
             var offsetY = this._aImages[i].height / 2;
             var offsetX = this._aImages[i].width / 2;
-            this.clearCorners(containerCanvas, this._aImages[i], offsetX, offsetY);
-        }
+           this.clearCorners(containerCanvas, this._aImages[i], offsetX, offsetY);
+        }*/
         if (format == 'jpeg' || format == 'png') {
             return this._oElement.toDataURL('image/'+format);
         }

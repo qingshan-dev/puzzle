@@ -87,7 +87,9 @@ require([ 'jquery', 'canvasImg', 'canvasElement' ], function(
     	e.stopPropagation();
         var i=getCurImg();
         var imgs = canvas._aImages[i];
-        imgs.scalexTurn = 1;
+        if(!imgs.scalexTurn){
+        	imgs.scalexTurn = 1;
+        }
         if(!imgs.scaleyTurn){
         	imgs.scaleyTurn = -1;
         }else{
@@ -100,7 +102,9 @@ require([ 'jquery', 'canvasImg', 'canvasElement' ], function(
     	e.stopPropagation();
         var i=getCurImg();
         var imgs = canvas._aImages[i];
-        imgs.scaleyTurn = 1;
+        if(!imgs.scaleyTurn){
+        	imgs.scaleyTurn = 1;
+        }
         if(!imgs.scalexTurn){
         	imgs.scalexTurn = -1;
         }else{
@@ -244,6 +248,13 @@ require([ 'jquery', 'canvasImg', 'canvasElement' ], function(
     });
     S('#upload_btn').on('click',function(){
         var imgData = canvas.canvasTo('jpeg');
+        imgData = imgData.replace("image/jpeg", "image/octet-stream")
+        window.open(imgData, "Canvas Image");
+        canvas.renderAll(true, true);
+        //DownLoadReportIMG(imgData);
+       /* imgData = imgData.replace("image/jpeg", "image/octet-stream")
+        window.open(imgData, "Canvas Image");
+        document.location.href = imgData;*/
         //var imgValue = imgData.substr(22);
 //      S.ajax({
 //          url : 'http://localhost/html5/upload1.php',
