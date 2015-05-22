@@ -69,7 +69,7 @@ canvas {
 }
 
 #puzzle_canvas {
-    overflow: hidden;
+    /*overflow: hidden;*/
     width: 800px;
     height: 600px;
     position: relative;
@@ -99,35 +99,27 @@ canvas {
 }
 
 #canvas_menu {
-    border: 1px solid red;
     position: absolute;
     z-index: 5;
-    top: 0;
-    left: 0;
+    top: 613px;
+    left: -140px;
     /*display: none;*/
-	border: 1px solid #301BE7;
-	border-radius: 16px;
-	background-color: #731FC0;
-	border-style: groove;
-	padding:2px;
+	
 }
 #canvas_menu a{
-	color: #FFF;
-	padding:1px;
+	background: #3B5998;
+    border-radius: 4px;
+    padding: 4px 12px;
+    overflow: hidden;
+    color: #ffffff;
 }
 
 #canvas_menu a {
     display: inline-block;
+	margin-right:7px;
 }
 
-#canvas_menu a:hover{
-	color: #731FC0;
-	border: 1px dashed #FF0000;
-	background: #fff;
-	padding:1px;
-}
-
-#test_canvas , #test ,#upload_btn{
+#test_canvas , #test{
     top: 700px;
     display: none;
 }
