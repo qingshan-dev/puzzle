@@ -21,7 +21,7 @@ require([ 'jquery', 'canvasImg', 'canvasElement' ], function(
             img[0]=new canvasImg.Img($('#bg').get(0), {});
             canvas.setCanvasBackground(img[0]);
         });
-        $('#bg').attr('src','img/big/'+index+'.jpg');
+        $('#bg').attr('src','img/mid/'+index+'.jpg');
 	}
     var CanvasDemo = function() {
         return {
