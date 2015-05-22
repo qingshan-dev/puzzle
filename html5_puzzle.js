@@ -8,13 +8,7 @@ require([ 'jquery', 'canvasImg', 'canvasElement' ], function(
     });
     S('.puzzle_column img').on('click',function(e){
         var index=this.getAttribute('data-index');
-        $('#bg').load(function() {
-            var ctx=$('#canvid1-canvas-background').get(0).getContext('2d');
-            ctx.clearRect(0, 0,800,600);
-            img[0]=new canvasImg.Img($('#bg').get(0), {});
-            canvas.setCanvasBackground(img[0]);
-        });
-        $('#bg').attr('src','img/'+index+'.jpg');
+        setBg(index);
         e.stopPropagation();
     });
     S(document).ready(function(){
@@ -27,7 +21,7 @@ require([ 'jquery', 'canvasImg', 'canvasElement' ], function(
             img[0]=new canvasImg.Img($('#bg').get(0), {});
             canvas.setCanvasBackground(img[0]);
         });
-        $('#bg').attr('src','img/'+index+'.jpg');
+        $('#bg').attr('src','img/big/'+index+'.jpg');
 	}
     var CanvasDemo = function() {
         return {
