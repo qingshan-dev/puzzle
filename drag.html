@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery.js"></script>
+</head>
+<body>
+<div id="container">
+
+</div>
+<script>
+    $(function () {
+        $("#container").on("dragstart dragend dragexit drop", function (e) {
+            console.info(e);
+            e.preventDefault();
+        });
+        $("#container").on("drop", function (e) {
+            console.info(e);
+            e.stopPropagation();
+            e.preventDefault();
+
+            var files = e.originalEvent.dataTransfer.files;
+            if(files && files.length > 0){
+                for(var i in files){
+                    console.info(files[i]);
+                }
+            }
+        });
+        $("#container").on("dragleave", function (e) {
+            //e.preventDefault();å
+            $(this).css("border", "1px solid #0f0");
+            $(this).text(e.type);
+            // $(this).css("border", "none");
+        });
+        $("#container").on("dragover", function (e) {
+            e.preventDefault();
+            $(this).css("border", "1px solid #f00");
+        });
+        $("#container").on("dragenter", function (e) {
+            e.preventDefault();
+            $(this).text(e.type);
+        });
+
+    })
+</script>
+<style>
+    #container {
+        width: 200px;
+        height: 200px;
+        background: #eee;
+    }
+</style>
+</body>
+</html>
